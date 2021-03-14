@@ -7,5 +7,6 @@ namespace FacebookInstagramIntegration.ConsoleApp.Interfaces
     {
         void Log(FacebookAccount account);
         void Log(List<Page> pages);
+        void Log(List<InstagramMetrics> metricsList);
     }
 }

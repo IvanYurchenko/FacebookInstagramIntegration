@@ -18,6 +18,7 @@ namespace FacebookInstagramIntegration.Web
             {
                 BaseAddress = new Uri("https://graph.facebook.com/v9.0/")
             };
+
             _httpClient.DefaultRequestHeaders
                 .Accept
                 .Add(new MediaTypeWithQualityHeaderValue("application/json"));

@@ -7,5 +7,6 @@ namespace FacebookInstagramIntegration.Web.Interfaces
         Page GetPage(dynamic obj);
         FacebookAccount GetFacebookAccount(dynamic obj);
         InstagramAccount GetInstagramAccount(dynamic obj);
+        InstagramMetrics GetInstagramMetrics(dynamic obj, string instagramMediaId);
     }
 }

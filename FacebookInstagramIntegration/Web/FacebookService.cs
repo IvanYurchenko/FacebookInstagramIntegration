@@ -74,7 +74,7 @@ namespace FacebookInstagramIntegration.Web
             page.InstagramAccounts = instagramAccounts;
         }
 
-        public async Task PostImageToInstagram(Page page, string imageUrl, string caption)
+        public async Task<string> PostImageToInstagram(Page page, string imageUrl, string caption)
         {
             var igAccount = page.InstagramAccounts.FirstOrDefault();
 
@@ -90,9 +90,26 @@ namespace FacebookInstagramIntegration.Web
 
             if (response == null || !response.IsSuccessStatusCode)
             {
-                throw new Exception("Invalid response. ");
+                throw new Exception("Unable to post an image. ");
             }
 
+            // TODO: FB Api doesn't work
+            throw new NotImplementedException();
+        }
+
+        public async Task<InstagramMetrics> GetInstagramMetrics(string accessToken, string instagramMediaId)
+        {
+            var response = await _facebookClient.GetAsync<dynamic>(
+                accessToken, "insights", "metric=engagement,impressions,reach,saved");
+
+            if (response == null)
+            {
+                throw new Exception("IG metrics not found. ");
+            }
+
+            // TODO: FB Api doesn't work
+            InstagramMetrics instagramMetrics = _modelMapper.GetInstagramMetrics(response, instagramMediaId);
+            return instagramMetrics;
         }
     }
 }

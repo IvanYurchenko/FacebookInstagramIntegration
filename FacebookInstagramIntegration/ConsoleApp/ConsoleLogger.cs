@@ -35,5 +35,25 @@ namespace FacebookInstagramIntegration.ConsoleApp
                 pageNumber++;
             }
         }
-}
+
+        public void Log(List<InstagramMetrics> metricsList)
+        {
+            Console.WriteLine("Metrics: ");
+            var metricsNumber = 1;
+            foreach (var metrics in metricsList)
+            {
+                Console.WriteLine($"Metric {metricsNumber}:");
+                Console.WriteLine($"Media ID: {metrics.MediaId}");
+
+                Console.WriteLine($"Impressions: {metrics.Impressions}");
+                Console.WriteLine($"Engagement: {metrics.Engagement}");
+                Console.WriteLine($"Reach: {metrics.Reach}");
+                Console.WriteLine($"Saved: {metrics.Saved}");
+
+                Console.WriteLine();
+
+                metricsNumber++;
+            }
+        }
+    }
 }

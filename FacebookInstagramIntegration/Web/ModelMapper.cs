@@ -39,5 +39,29 @@ namespace FacebookInstagramIntegration.Web
 
             return instagramAccount;
         }
+
+        public InstagramMetrics GetInstagramMetrics(dynamic obj, string instagramMediaId)
+        {
+            var instagramAccount = new InstagramMetrics
+            {
+                MediaId = instagramMediaId,
+                Impressions = TryParseOrNull(obj.engagement),
+                Engagement = TryParseOrNull(obj.engagement),
+                Reach = TryParseOrNull(obj.engagement),
+                Saved = TryParseOrNull(obj.engagement),
+            };
+
+            return instagramAccount;
+        }
+
+        private int? TryParseOrNull(string str)
+        {
+            if (int.TryParse(str, out var result))
+            {
+                return result;
+            }
+
+            return null;
+        }
     }
 }
