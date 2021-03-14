@@ -16,7 +16,7 @@ namespace FacebookInstagramIntegration.Web
         {
             _httpClient = new HttpClient
             {
-                BaseAddress = new Uri("https://graph.facebook.com/v2.8/")
+                BaseAddress = new Uri("https://graph.facebook.com/v9.0/")
             };
             _httpClient.DefaultRequestHeaders
                 .Accept
@@ -35,7 +35,9 @@ namespace FacebookInstagramIntegration.Web
 
             var response = await _httpClient.GetAsync($"{endpoint}{accessTokenString}{argsString}");
             if (!response.IsSuccessStatusCode)
+            {
                 return default(T);
+            }
 
             var result = await response.Content.ReadAsStringAsync();
 

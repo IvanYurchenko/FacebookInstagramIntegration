@@ -8,7 +8,7 @@ namespace FacebookInstagramIntegration
     {
         static async Task Main(string[] args)
         {
-            var app = new FacebookApp();
+            var app = new FacebookConsoleApp();
             await app.DoFacebook();
         }
     }
