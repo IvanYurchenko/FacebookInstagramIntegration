@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FacebookInstagramIntegration.Models;
 using FacebookInstagramIntegration.Web.Interfaces;
@@ -9,34 +10,28 @@ namespace FacebookInstagramIntegration.Web
     public class FacebookService : IFacebookService
     {
         private readonly IFacebookClient _facebookClient;
+        private readonly IModelMapper _modelMapper;
 
-        public FacebookService(IFacebookClient facebookClient)
+        public FacebookService(
+            IFacebookClient facebookClient,
+            IModelMapper modelMapper)
         {
             _facebookClient = facebookClient;
+            _modelMapper = modelMapper;
         }
 
         public async Task<FacebookAccount> GetAccountAsync(string accessToken)
         {
-            var result = await _facebookClient.GetAsync<dynamic>(
-                accessToken, "me", "fields=id,name,email,first_name,last_name,age_range,birthday,gender,locale");
+            var response = await _facebookClient.GetAsync<dynamic>(
+                accessToken, "me", "fields=id,name,first_name,last_name");
 
-            if (result == null)
+            if (response == null)
             {
                 throw new Exception("FacebookAccount not found. ");
             }
 
-            var account = new FacebookAccount
-            {
-                Id = result.id,
-                Email = result.email,
-                Name = result.name,
-                UserName = result.username,
-                FirstName = result.first_name,
-                LastName = result.last_name,
-                Locale = result.locale
-            };
-
-            return account;
+            FacebookAccount facebookAccount = _modelMapper.GetFacebookAccount(response);
+            return facebookAccount;
         }
 
         public async Task<List<Page>> GetPagesAsync(string accessToken)
@@ -45,24 +40,18 @@ namespace FacebookInstagramIntegration.Web
 
             if (response == null || response.data == null)
             {
-                throw new Exception("Page Not found. ");
+                throw new Exception("Page not found. ");
             }
 
-            var list = new List<Page>();
+            var pages = new List<Page>();
 
-            foreach (var page in response.data)
+            foreach (var pageDynamic in response.data)
             {
-                var pageToAdd = new Page
-                {
-                    AccessToken = page.access_token,
-                    Id = page.id,
-                    Name = page.name
-                };
-                
-                list.Add(pageToAdd);
+                Page page = _modelMapper.GetPage(pageDynamic);
+                pages.Add(page);
             }
 
-            return list;
+            return pages;
         }
 
         public async Task SetInstagramAccounts(Page page)
@@ -75,16 +64,35 @@ namespace FacebookInstagramIntegration.Web
             }
 
             var instagramAccounts = new List<InstagramAccount>();
+
             foreach (var instagramAccountDynamic in response.data)
             {
-                var instagramAccount = new InstagramAccount
-                {
-                    Id = instagramAccountDynamic.id
-                };
+                InstagramAccount instagramAccount = _modelMapper.GetInstagramAccount(instagramAccountDynamic);
                 instagramAccounts.Add(instagramAccount);
             }
 
             page.InstagramAccounts = instagramAccounts;
+        }
+
+        public async Task PostImageToInstagram(Page page, string imageUrl, string caption)
+        {
+            var igAccount = page.InstagramAccounts.FirstOrDefault();
+
+            if (igAccount == null)
+            {
+                throw new Exception("Instagram account is missing. ");
+            }
+
+            var objectToPost = new object();
+            var argsString = $"image_url={imageUrl}&caption={caption}";
+
+            var response = await _facebookClient.PostAsync(page.AccessToken, $"{igAccount.Id}/media", objectToPost, argsString);
+
+            if (response == null || !response.IsSuccessStatusCode)
+            {
+                throw new Exception("Invalid response. ");
+            }
+
         }
     }
 }

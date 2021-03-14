@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-using FacebookInstagramIntegration.Console;
-using FacebookInstagramIntegration.Web;
+﻿using System.Threading.Tasks;
+using FacebookInstagramIntegration.ConsoleApp.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FacebookInstagramIntegration
 {
@@ -9,7 +8,8 @@ namespace FacebookInstagramIntegration
     {
         static async Task Main(string[] args)
         {
-            var app = new FacebookConsoleApp();
+            var serviceProvider = DependencyConfigurator.Configure();
+            var app = serviceProvider.GetService<IFacebookConsoleApp>();
             await app.DoFacebook();
         }
     }

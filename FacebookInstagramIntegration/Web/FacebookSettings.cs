@@ -2,6 +2,8 @@
 {
     public static class FacebookSettings
     {
-        public static string AccessToken = "EAAMTsZAzK8q0BAFn0OzqR5L2i4j14pT8fR7SwzgW2ZA1AExWrlgpqJD6yc2WZA6MDHmSShoYTycL2MBdZCLWM0vcBARrg0Eg6b51oZA4ZBTCUOzJGQZANVBb7cFTdPJYrGVDAbQZB0H4cUUAZCZAhWVBzwZAF0bnnWZBgBb1ZCoanZCAuHfJy3ZCKDcZCJhnnjqBRf2SIh3eeTmivGf4p13XQqPnWRZB4fkorOSdrV8FDL86YxoEdUpqxZAz7Dt3zr";
+        public static string AccessToken = "EAAMTsZAzK8q0BAJSjLalCylw0gS1jV3Fgv77iWeASH9cZCudpbJHf1uyClHZBpyZAqdIGvBSa2RbJNeHbDhjcAbAKCWfcUI71QCgnaiQKcSqBtt7BlvZCpJVSS2Kj0QCYCyAMCLnB8Iaur1rtLSv6v7xbBsU0bnOvFQ5gE2fkZBrxj7MCtZBKaktCBfyOPFceevit1wZBidUsiGvfC3yc0f8xzWVG4aagbw9CnIgsNxRWb9shVeCEjmJ";
+        public static string TestImageUrl = "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg";
+        public static string TestCaption = "Test Caption";
     }
 }

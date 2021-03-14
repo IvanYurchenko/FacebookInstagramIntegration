@@ -44,10 +44,11 @@ namespace FacebookInstagramIntegration.Web
             return JsonConvert.DeserializeObject<T>(result);
         }
 
-        public async Task PostAsync(string accessToken, string endpoint, object data, string args = null)
+        public async Task<HttpResponseMessage> PostAsync(string accessToken, string endpoint, object data, string args = null)
         {
             var payload = GetPayload(data);
-            await _httpClient.PostAsync($"{endpoint}?access_token={accessToken}&{args}", payload);
+            var result = await _httpClient.PostAsync($"{endpoint}?access_token={accessToken}&{args}", payload);
+            return result;
         }
 
         private static StringContent GetPayload(object data)

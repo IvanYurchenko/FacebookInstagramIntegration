@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using FacebookInstagramIntegration.Models;
 
-namespace FacebookInstagramIntegration.Console.Interfaces
+namespace FacebookInstagramIntegration.ConsoleApp.Interfaces
 {
     public interface IConsoleLogger
     {
