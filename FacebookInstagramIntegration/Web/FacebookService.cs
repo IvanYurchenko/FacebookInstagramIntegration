@@ -63,8 +63,5 @@ namespace FacebookInstagramIntegration.Web
 
             return list;
         }
-
-        public async Task PostOnWallAsync(string accessToken, string message)
-            => await _facebookClient.PostAsync(accessToken, "me/feed", new { message });
     }
 }

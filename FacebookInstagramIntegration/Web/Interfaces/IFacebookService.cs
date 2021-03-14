@@ -6,7 +6,6 @@ namespace FacebookInstagramIntegration.Web.Interfaces
     public interface IFacebookService
     {
         Task<Account> GetAccountAsync(string accessToken);
-        Task PostOnWallAsync(string accessToken, string message);
     }
 
 }

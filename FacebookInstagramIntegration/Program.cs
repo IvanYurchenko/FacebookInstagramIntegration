@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FacebookInstagramIntegration.Console;
 using FacebookInstagramIntegration.Web;
 
 namespace FacebookInstagramIntegration
