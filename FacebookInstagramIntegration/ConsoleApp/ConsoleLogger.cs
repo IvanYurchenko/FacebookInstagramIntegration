@@ -15,7 +15,9 @@ namespace FacebookInstagramIntegration.ConsoleApp
                 return;
             }
 
-            Console.WriteLine($"{account.Id} {account.Name}");
+            Console.WriteLine($"Facebook User: ");
+            Console.WriteLine($"Account ID: {account.Id}");
+            Console.WriteLine($"Full Name: {account.Name}");
             Console.WriteLine("");
         }
 
