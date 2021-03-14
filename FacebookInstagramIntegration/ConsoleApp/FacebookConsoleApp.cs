@@ -37,21 +37,21 @@ namespace FacebookInstagramIntegration.ConsoleApp
             _consoleLogger.Log(pages);
 
             // Post an Image to IG
-            // TODO: Doesn't work due to FB api errors
             var postedMediaIds = new List<string>();
             foreach (var page in pages)
             {
-                var mediaId = await _facebookService.PostImageToInstagram(page, FacebookSettings.TestImageUrl, FacebookSettings.TestCaption);
-                postedMediaIds.Add(mediaId);
+                // TODO: Doesn't work due to FB api errors
+                //var mediaId = await _facebookService.PostImageToInstagram(page, FacebookSettings.TestImageUrl, FacebookSettings.TestCaption);
+                //postedMediaIds.Add(mediaId);
             }
 
             // Get impressions by IG media ID
-            // TODO: Doesn't work due to FB api errors
             var metricsList = new List<InstagramMetrics>();
             foreach (var mediaId in postedMediaIds)
             {
-                var metrics = await _facebookService.GetInstagramMetrics(FacebookSettings.AccessToken, mediaId);
-                metricsList.Add(metrics);
+                // TODO: Doesn't work due to FB api errors
+                //var metrics = await _facebookService.GetInstagramMetrics(FacebookSettings.AccessToken, mediaId);
+                //metricsList.Add(metrics);
             }
 
             _consoleLogger.Log(metricsList);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FacebookInstagramIntegration.ConsoleApp.Interfaces;
 using FacebookInstagramIntegration.Models;
 
@@ -9,12 +10,22 @@ namespace FacebookInstagramIntegration.ConsoleApp
     {
         public void Log(FacebookAccount account)
         {
+            if (account == null)
+            {
+                return;
+            }
+
             Console.WriteLine($"{account.Id} {account.Name}");
             Console.WriteLine("");
         }
 
         public void Log(List<Page> pages)
         {
+            if (pages == null || !pages.Any())
+            {
+                return;
+            }
+
             Console.WriteLine("Pages: ");
             var pageNumber = 1;
             foreach (var page in pages)
@@ -38,6 +49,11 @@ namespace FacebookInstagramIntegration.ConsoleApp
 
         public void Log(List<InstagramMetrics> metricsList)
         {
+            if (metricsList == null || !metricsList.Any())
+            {
+                return;
+            }
+
             Console.WriteLine("Metrics: ");
             var metricsNumber = 1;
             foreach (var metrics in metricsList)
