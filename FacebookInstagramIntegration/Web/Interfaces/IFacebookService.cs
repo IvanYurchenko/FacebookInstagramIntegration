@@ -5,7 +5,7 @@ namespace FacebookInstagramIntegration.Web.Interfaces
 {
     public interface IFacebookService
     {
-        Task<Account> GetAccountAsync(string accessToken);
+        Task<FacebookAccount> GetAccountAsync(string accessToken);
     }
 
 }

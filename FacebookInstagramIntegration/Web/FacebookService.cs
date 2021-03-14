@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FacebookInstagramIntegration.Models;
 using FacebookInstagramIntegration.Web.Interfaces;
@@ -14,17 +15,17 @@ namespace FacebookInstagramIntegration.Web
             _facebookClient = facebookClient;
         }
 
-        public async Task<Account> GetAccountAsync(string accessToken)
+        public async Task<FacebookAccount> GetAccountAsync(string accessToken)
         {
             var result = await _facebookClient.GetAsync<dynamic>(
                 accessToken, "me", "fields=id,name,email,first_name,last_name,age_range,birthday,gender,locale");
 
             if (result == null)
             {
-                return new Account();
+                throw new Exception("FacebookAccount not found. ");
             }
 
-            var account = new Account
+            var account = new FacebookAccount
             {
                 Id = result.id,
                 Email = result.email,
@@ -44,7 +45,7 @@ namespace FacebookInstagramIntegration.Web
 
             if (response == null || response.data == null)
             {
-                return new List<Page>();
+                throw new Exception("Page Not found. ");
             }
 
             var list = new List<Page>();
@@ -62,6 +63,28 @@ namespace FacebookInstagramIntegration.Web
             }
 
             return list;
+        }
+
+        public async Task SetInstagramAccounts(Page page)
+        {
+            var response = await _facebookClient.GetAsync<dynamic>(page.AccessToken, $"{page.Id}/instagram_accounts");
+
+            if (response == null || response.data == null)
+            {
+                throw new Exception("Page not found. ");
+            }
+
+            var instagramAccounts = new List<InstagramAccount>();
+            foreach (var instagramAccountDynamic in response.data)
+            {
+                var instagramAccount = new InstagramAccount
+                {
+                    Id = instagramAccountDynamic.id
+                };
+                instagramAccounts.Add(instagramAccount);
+            }
+
+            page.InstagramAccounts = instagramAccounts;
         }
     }
 }

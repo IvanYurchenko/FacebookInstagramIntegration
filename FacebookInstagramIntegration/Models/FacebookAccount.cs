@@ -1,6 +1,6 @@
 ﻿namespace FacebookInstagramIntegration.Models
 {
-    public class Account
+    public class FacebookAccount
     {
         public string Id { get; set; }
         public string Name { get; set; }

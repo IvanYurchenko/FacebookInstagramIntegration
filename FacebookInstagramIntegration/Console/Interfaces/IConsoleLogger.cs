@@ -5,7 +5,7 @@ namespace FacebookInstagramIntegration.Console.Interfaces
 {
     public interface IConsoleLogger
     {
-        void Log(Account account);
+        void Log(FacebookAccount account);
         void Log(List<Page> pages);
     }
 }

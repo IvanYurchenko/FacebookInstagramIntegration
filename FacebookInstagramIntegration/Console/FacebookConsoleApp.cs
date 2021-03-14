@@ -18,6 +18,11 @@ namespace FacebookInstagramIntegration.Console
             var pages = await facebookService.GetPagesAsync(FacebookSettings.AccessToken);
             consoleLogger.Log(pages);
 
+            foreach (var page in pages)
+            {
+                await facebookService.SetInstagramAccounts(page);
+            }
+
             System.Console.ReadLine();
         }
     }

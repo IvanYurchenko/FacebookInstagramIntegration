@@ -6,7 +6,7 @@ namespace FacebookInstagramIntegration.Console
 {
     public class ConsoleLogger : IConsoleLogger
     {
-        public void Log(Account account)
+        public void Log(FacebookAccount account)
         {
             System.Console.WriteLine($"{account.Id} {account.Name}");
             System.Console.WriteLine($"");
